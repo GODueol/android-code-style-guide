@@ -112,7 +112,7 @@ internal abstract class MyCustomLayout constructor(
 
 ## [Basic rules]
 
-### ✓ enum 은 대문자로 시작해 camel case 를 사용한다.
+### ✓ enum 은 대문자로 시작해 snake case 를 사용한다.
 
 ``` kotlin
 😰
@@ -123,8 +123,8 @@ enum BadEnum {
 
 😍
 enum GoodEnum {
-  GoodEnum,
-  AlsoGoodEnum
+  GOOD_ENUM,
+  ALSO_GOOD_ENUM
 }
 ```
 
@@ -160,7 +160,7 @@ class Good constructor(context: Context) : FrameLayout(context)
 internal class BadClass ( /** constructor 키워드가 있어야 한다. */
     private val context: Context,
     private val resources: Resource
-) : FrameLayout(context) { /** 윗 라인에 공백라인을 추가한다. */
+) : FrameLayout(context) {
 
   private val variable: Int = 0
 
@@ -172,7 +172,6 @@ internal class BadClass ( /** constructor 키워드가 있어야 한다. */
 internal class GoodClass constructor(
     private val context: Context,
     private val resources: Resource
-    
 ) : FrameLayout(context) {
 
   private val variable: Int = 0
@@ -227,14 +226,7 @@ internal class AlsoBadEmptyclass {}
 internal class GoodEmptyclass
 ```
 
-### ✓ data class 를 사용하지 않는다.
-
-- kotlin 은 class 앞에 data keyword 를 붙여 data class 로써 편의함수(equal, hash, copy)등을 자동포함하도록 하는 기능이 있다.
-- 하지만 이를 사용하지 않는다.
-- 그 이유에 대해서는 이곳에 서술하기엔 길어지므로 lead programmer 에게 문의
-  - 간단하게 설명하자면 [기본적으로 안되게 하는 철학](https://github.com/taenguree/android-code-style-guide/blob/master/General.md#%EB%AD%90%EB%93%A0%EC%A7%80-%EC%9A%B0%EC%84%A0-%EC%95%88%EB%90%98%EA%B2%8C-%ED%95%98%EA%B3%A0-%EB%82%98%EC%A4%91%EC%97%90-%ED%95%84%EC%9A%94%ED%95%A0-%EB%95%8C-%EB%90%98%EA%B2%8C%ED%95%98%EB%9D%BC-)에 위배되기 때문이다.
-
-### ✓ 변수명만으로 타입의 의미를 표현하기 힘든 경우 typealias 를 적극적으로 사용한다.
+### ✓ 변수명만으로 타입의 의미를 표현하기 힘든 경우 typealias 를 잘 사용한다.
 
 ``` kotlin
 😰
@@ -247,13 +239,14 @@ private typealias PictureUrl   = String
 private val goodVariable = hashMapOf<PictureIndex, PictureUrl>()
 ```
 
-### ✓ optional 변수에 대한 unwarpping(!!) 을 적극적으로 사용한다.
+### ✓ optional 변수에 대한 unwarpping(!!)을 개발자의 판단에 따라 사용해도된다.
 
 - optional 인 변수가 특정순간에는 확실히 값이 있어야 한다라고 확신한다면 !! 을 적극적으로 사용한다.
 - 버그로 인해 해당 변수가 그 순간에 null 이라면 앱이 죽을 것이고 crashlytics 로 리포트가 전송돼 개발자가 빠르게 인지할 수 있다.
-  - 앱이 절대로 죽어서는 안되는 비지니스라면 해당하지 않는다.
   - 앱을 죽이지 않고도 리포트를 crashlytics 수준으로 받을 수 있는 내부 인프라가 있다면 !! 를 사용하지 않아도 좋다.
 
+
+> TODO Scope Function 정의 후 다시 정의 필요.
 ### ✓ optional?.let { ... } 보다는 if 문을 사용한다.
 
 ``` kotlin
@@ -286,7 +279,7 @@ private val alsoBadRxOperatorStyle = observable.filter { /** operator 여러개�
 
 private val alsoBadRxOperatorStyle = observable
   .filter {
-    it == 1 /** 오퍼레이터 안의 로직이 한 줄로 충분히 작성하능 할 경우 한 줄로 작성한다. */
+    it == 1 /** 오퍼레이터 안의 로직이 한 줄로 충분히 작성가능 할 경우 한 줄로 작성한다. */
   }
   .map { 
     it + SOME_VALUE 
@@ -318,7 +311,6 @@ internal class NotRecommendedUserClass constructor(
 internal class RecommendedUserClass constructor(
     private val id: String,
     private val password: String
-    
 ) {
 
   private lateinit var type: UserType
@@ -336,6 +328,7 @@ internal class RecommendedUserClass constructor(
 
 - primitive 타입의 arguments 에는 최대한 hint 를 사용한다.
 - arguments 에 넣는 변수 이름과 arguments 의 이름이 동일한 경우는 굳이 hint 를 쓸 필요는 없으나 써도 무방하다.
+- 힌트가 들어가는 경우에는 모든 arguments에 hint를 입력해준다.
 
 ``` kotlin
 😰
