@@ -56,83 +56,6 @@ companion object {
 
 ```
 
-### ✓ table-like line-up (tllu)
-
-- 생성자에 arguments 가 많아져 코드가 길어질 경우 가독성을 높이기 위해 아래를 참조해 코드라인의 정렬을 맞춘다.
-  - 예외) 생성자가 안의 arguments 가 1-3 개일 경우 그리고 그렇게 길지 않을 경우는 한 줄로 써도 무방하다.
-  - 예외) 일반함수 혹은 코틀린 secondary 생성자에서는 너무 길지 않은 이상 웬만해선 한 줄로 쓰도록 한다.
-
-``` kotlin
-😰 
-internal class BadLineUpConstructor constructor(private val resource: Resources, private val weakContext: WeakReference<Context>, private val repository: RepositoryApi, private val remoteAction: RemoteActionApi) : ParentClass { 
-
-  ...
-
-}
-
-😍
-internal class GoodLineUpConstructor constructor(
-    private val resource: Resources, 
-    private val weakContext: WeakReference<Context>, 
-    private val repository: RepositoryApi, 
-    private val remoteAction: RemoteActionApi
-    
-) : ParentClass {
-
-    ...
-
-}
-```
-
-- 논리적으로 유사한 작업을 하는 코드라인들을 붙여서 작성할 경우 아래를 참조해 코드라인의 정렬을 맞춘다.
-  - 예외) 라인사이에 공백라인이 있을 경우 tllu 하지 않는다. 즉, tllu 하기 싫다면 라인사이에 공백을 넣는다.
-  
-``` kotlin
-😰
-//case 1
-private val badLineUp = PublishRelay<Int>.create()
-private val badLineUpSecondRelay = PublishRelay<Int>.create()
-private val badLineUpThirdRelay = PublishRelay<Int>.create()
-
-//case 2
-private val alsoBadLineUp            = PublishRelay<Int>.create()
-
-private val alsoBadLineUpSecondRelay = PublishRelay<Int>.create()
-
-private val alsoBadLineUpThirdRelay  = PublishRelay<Int>.create()
-
-😍
-//case 1
-private val goodLineUp            = PublishRelay<Int>.create()
-private val goodLineUpSecondRelay = PublishRelay<Int>.create()
-private val goodLineUpThirdRelay  = PublishRelay<Int>.create()
-
-//case2
-private val alsoGoodLineUp = PublishRelay<Int>.create()
-
-private val alsoGoodLineUpSecondRelay = PublishRelay<Int>.create()
-
-private val alsoGoodLineUpThirdRelay = PublishRelay<Int>.create()
-```
-
-- kotlin 함수 콜에서 hint 도 아래를 참조해 정렬을 맞춘다.
-
-``` kotlin
-😰
-loginRepository.requestLogin(
-  id = id,
-  password = password,
-  token = token
-)
-
-😍
-loginRepository.requestLogin(
-  id       = id,
-  password = password,
-  token    = token
-)
-```
-
 ### ✓ 모든 컴포넌트 사이의 공백은 한칸을 사용한다. 두칸 이상 사용하지 않는다.
 
 ``` kotlin
@@ -203,8 +126,8 @@ else
 
 😍 
 if(condition) {
-  Log.d(TAG, "GOOD!") }
-else {
+  Log.d(TAG, "GOOD!")  
+} else {
   Log.d(TAG, "also GOOD!")
 }
 ```
@@ -269,17 +192,18 @@ lateinit var badAnnotating: String
 @Inject @field:Good lateinit var goodAnnotating: String
 ```
 
-### ✓ Builder 패턴의 코드를 부를 때에는 메소드를 세번이상 부를 때 LF 한다.
+### ✓ Builder 패턴의 코드를 부를 때에는 무조건 LF한다.
 
 ``` kotlin
 😰 
-badBuilder.setInt(1)
-  .build()
+badBuilder.setInt(1).build()
   
 badBuilder.setInt(1).setBoolean(false).build()
 
 😍
-goodBuilder.setInt(1).build()
+goodBuilder
+  .setInt(1)
+  .build()
   
 goodBuilder
   .setInt(1)
@@ -369,9 +293,9 @@ if(badIfCondition && badIfCondition1 && badIfCondigion2) {
 }
 
 😍
-if(goodIfCondition &&
-    goodIfCondition1 && 
-    goodIfCondition2) {
+if(goodIfCondition 
+    && goodIfCondition1 
+    && goodIfCondition2) {
   ...
 }
 ```
@@ -410,6 +334,7 @@ internal class GoodOuterClass { /** outer 클래스이므로 시작과 끝에 �
 }
 
 internal interface GoodInterface { /** interface 이므로 시작과 끝에 공백라인이 없음 */
+  fun doSomething()
   fun doSomething()
 }
 
@@ -461,4 +386,22 @@ good_lamda.setOnClickListener {
   doSomething()
   doNextThing()
 }
+```
+
+### ✓ 암시적 매개변수는 한 눈에 띄지 않는경우에는 명시를 해준다.
+
+``` kotlin
+😰
+private val goodOperatorStyle = Observable.just(1, 2, 3)
+  .filter { it == 1 }
+  .map { it + SOME_VALUE }
+
+😍
+private val goodOperatorStyle = Observable.just(1, 2, 3)
+  .filter { streamValue -> 
+			streamValue == 1 
+	}
+  .map { filteredStreamValue -> 
+			filteredStreamValue + SOME_VALUE 
+	}
 ```
