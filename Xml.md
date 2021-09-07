@@ -10,7 +10,7 @@
 | 프래그먼트 | fragment_{name} |
 | 다이얼로그 프래그먼트 | dialog_fragment_{name} |
 | 커스텀 뷰 | view_{name} |
-| 뷰 홀더 | view_holder_{name} |
+| 뷰 홀더 | item_{name} |
 | include 되는 xml | include_layout_{name} |
 
 ### ✓ xml 뷰 요소들의 id 는 아래와 같은 네이밍 룰을 따른다.
@@ -22,7 +22,7 @@
         | 뷰 원래 이름 | 뷰 id |
         | --------------- | --------------- |
         | NestedScrollView | android:id="@+id/```nsv_problem_solving_history```" |
-        | ConstraintLayout | android:id="@+id/```cl__problem_solving_history```" |
+        | ConstraintLayout | android:id="@+id/```cl_problem_solving_history```" |
         | LinearLayout | android:id="@+id/```ll_problem_solving_histroy```" |
 
 - 두개의 다른 뷰가 축약어가 겹치는 경우는 여기에 따로 기록한다.
@@ -45,10 +45,7 @@ internal class CircledLayout constructor : ImageView(...)
 internal class CircledImageView constructor : ImageView(...)
 ```
 
-- custom 된 뷰가 xml 에서 쓰일 경우 id 는 custom_{최상위_부모뷰의 축약어}_{이름} 로 명명한다.
-    - 예)
-        - android:id="@+id/"```custom_iv```_circled"
-        - android:id="@+id/"```custom_fl```_road_map_cell"
+- custom 된 뷰가 xml 에서 쓰일 경우 id 또한 기본 네이밍 룰을 따른다.
 
 ## [Basic rules]
 
@@ -93,7 +90,8 @@ internal class CircledImageView constructor : ImageView(...)
         android:layout_gravity="start"
         android:padding="5dp"
         android:background="#ffffff"
-        android:orientation="vertical"> <!-- 이처럼 아래 EditText 와 공백이 없어야 한다. -->
+        android:orientation="vertical"> 
+        
         <EditText
             android:id="@+id/sinod_json_edit_text"
             android:layout_width="match_parent"
@@ -113,7 +111,8 @@ internal class CircledImageView constructor : ImageView(...)
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout> <!-- 이처럼 위 버튼과 공백이 없어야 한다. -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout> 
 
 </androidx.drawerlayout.widget.DrawerLayout>
 ```
@@ -151,6 +150,86 @@ internal class CircledImageView constructor : ImageView(...)
 
 </androidx.drawerlayout.widget.DrawerLayout>
 ```
+
+### 데이터 바인딩 컨밴션
+- 네임스페이스는 최상위에 선언한다.
+- Data 각 import, variable사이에는 공백이 있어야 한다. (구글 코드 스타일 가이드)
+
+```jsx
+😞
+<layout>
+
+    <data>
+        <import type="android.view.View" />
+        <import type="android.text.TextUtils" />
+        <variable
+            name="title"
+            type="String" />
+        <variable
+            name="subTitle"
+            type="String" />
+        <variable
+            name="confirmButton"
+            type="String" />
+        <variable
+            name="cancleButton"
+            type="String" />
+
+    </data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+		
+		...
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+```
+
+```jsx
+😃
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+																				<!-- 이처럼 이곳에 공백라인이 있어야 한다. -->
+        <import type="android.view.View" />
+																				<!-- 이처럼 이곳에 공백라인이 있어야 한다. -->
+        <import type="android.text.TextUtils" />
+																				<!-- 이처럼 이곳에 공백라인이 있어야 한다. -->
+        <variable
+            name="title"
+            type="String" />
+																				<!-- 이처럼 이곳에 공백라인이 있어야 한다. -->
+        <variable
+            name="subTitle"
+            type="String" />
+																				<!-- 이처럼 이곳에 공백라인이 있어야 한다. -->
+        <variable
+            name="confirmButton"
+            type="String" />
+																				<!-- 이처럼 이곳에 공백라인이 있어야 한다. -->
+        <variable
+            name="cancleButton"
+            type="String" />
+    </data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+		
+		...
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+```
+
+
 
 - [구글 코드 스타일 가이드](https://github.com/taenguree/android-code-style-guide#style-xml-setting)를 임포트했다면 위 룰들을 따라 xml 을 작성 후 항상 command+option+L 을 눌러 코드를 reformat 한다.
     - reformat 단축키는 안드로이드 스튜디오 설정마다 개인별로 다를 수 있다.
