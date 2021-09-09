@@ -236,3 +236,13 @@ internal class CircledImageView constructor : ImageView(...)
 
 # TODO
 - res > drawable > xml 리소스 네이밍 정하는 순서 정하기 ex)bg_gray_000_r10.xml 
+{shape}_{color}_{alpha}_{radius}
+
+``` xml
+ractangle_black_o30_r25
+```
+
+- selector 네이밍
+``` xml
+selector는... 기존프로젝트 성향을 따라가도록 노력한다. 보다 못하겠으면 아이디어 제시좀
+```
