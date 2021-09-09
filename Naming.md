@@ -14,7 +14,7 @@ private fun userDataFetch()
 private fun fetchUserData()
 ```
 
-- 상황/이벤트/콜백 -> (on){중요정보명사}{동사}{부사|기타} 순으로 작성한다.
+- 상황/이벤트/콜백 -> (on){중요정보명사}{동사}{부사|기타} 순으로 작성한다. (이 케이스는 각자 알아서..)
 
 ``` kotlin 
 😰
@@ -22,6 +22,8 @@ private fun onFetchUserData()
 
 😍
 private fun onUserDataFetched()
+
+예외) 작성중..
 ```
 
 ### ✓ 변수명/함수명은 평서문처럼 작성하고 동사/명사/접속사/전치사 등을 적극적으로 사용해 최대한 많은 의미를 담는다.
@@ -40,19 +42,10 @@ private fun calculateTransitionDistanceForNodeOnFocus(focusTargetView: View): Fl
 
 ### ✓ 특정 기능을 하는 Interface 와 이를 상속받는 클래스가 있을 경우 아래와 같은 룰을 따른다.
 
-- Interface 에는 Api 라는 suffix 를 붙이고 클래스에는 suffix 를 붙이지 않는다.
+- Interface는 기본 작성 후 구현 클래스에는 "Impl" suffix 붙인다.
 
 ``` kotlin
 😰
-internal interface TypeConverter {
-  //...
-}
-
-internal class TypeConverterImpl : TypeConverter {
-  //..
-}
-
-😍
 internal interface TypeConverterApi {
   //...
 }
@@ -61,12 +54,22 @@ internal class TypeConverter : TypeConverterApi {
   //..
 }
 
+😍
+internal interface TypeConverter {
+  //...
+}
+
+internal class TypeConverterImpl : TypeConverter {
+  //..
+}
+
+
 ```
 
 
 ## [ Variable/Method Naming Rules ]
 
-### ✓ 상태를 나타내는 변수는 아래와 같은 룰을 따른다.
+### ✓ 상태를 나타내는 변수는 아래와 같은 룰을 따른다. (Rx와 같은 케이스에 대한 대응 필요)
 
 - {중요정보명사}{동사}{기타정보}{부사}
 
@@ -157,7 +160,3 @@ private var products = listOf<Product>
 
 private var productList = listOf<Product>
 ```
-
-## [ MVCH Rules ]
-
-### ✓ 
