@@ -15,16 +15,10 @@
           - → Tab size : 4
           - → Indent : 4
           - → Countinuation intdent : 8
-        - Spaces
-          - → 'if' parentheses 체크 해제
-          - → 'for' parentheses 체크 해제
-          - → 'while' parentheses 체크 해제
-          - → 'catch' parentheses 체크 해제
-          - → 'when' parentheses 체크 해제
         - Imports
           - → Insert imports for inner classes 체크 해제
 
-## file template setting
+## file template setting (미적용)
 
 - 기본적으로 클래스, 리소스 파일을 생성 시 /** Created By ... */ 와 같이 자동 생성되는 문구들이 없도록 한다.
 - kt 파일의 경우 internal 을 default 로 생성한다.
@@ -64,8 +58,3 @@
           internal interface ${NAME} {
           }
           ```
-
-## extra setting
-
-- parameter name hint 를 disable 한다.
-  - AndroidStudio -> Preference -> Editor -> General -> Appearance -> 'show parameter name hints' 체크해제
