@@ -233,3 +233,6 @@ internal class CircledImageView constructor : ImageView(...)
 
 - [구글 코드 스타일 가이드](https://github.com/taenguree/android-code-style-guide#style-xml-setting)를 임포트했다면 위 룰들을 따라 xml 을 작성 후 항상 command+option+L 을 눌러 코드를 reformat 한다.
     - reformat 단축키는 안드로이드 스튜디오 설정마다 개인별로 다를 수 있다.
+
+# TODO
+- res > drawable > xml 리소스 네이밍 정하는 순서 정하기 ex)bg_gray_000_r10.xml 
